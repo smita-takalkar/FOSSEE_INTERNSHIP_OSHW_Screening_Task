@@ -59,13 +59,47 @@ source ~/.bashrc
 ```
 <img width="1920" height="1080" alt="Screenshot 2025-11-17 225733" src="https://github.com/user-attachments/assets/23c46e11-40ac-4375-97f3-4e4b1600fb5d" />
 <img width="1920" height="1080" alt="Screenshot 2025-11-17 225745" src="https://github.com/user-attachments/assets/cd5e0e28-dbf3-490a-ad51-30670b6276fa" />
+```bash
+# Installation verification
+qemu-system-xtensa --version
+# checking if ESP32 machine is available
+qemu-system-xtensa -machine help
+```
+<img width="1920" height="1080" alt="Screenshot 2025-11-20 143505" src="https://github.com/user-attachments/assets/e76c70be-e8f9-4db9-843e-452388af3ccd" />
 
 
 ### STEP 3: SETUP ESP-IDF
+ESP-IDF SDK provides the compiler, libraries, & tools for building ESP32 applications
+commands to set up ESP-IDF
+```bash
+# creating dedicated directory for ESP development
+mkdir esp
+cd esp
+
+# Cloning repository (using ESP-IDF v5.1.2 version as it is stable)
+git clone -b v5.1.2 --recursive https://github.com/espressif/esp-idf.git
+cd esp-idf
+# Running the install script to set up all the required tools
+./install.sh all
+
+# adding ESP-IDF tools to the PATH
+source ~/esp/esp-idf/export.sh
+# Verify Installation
+idf.py --version
+```
+<img width="1920" height="1080" alt="Screenshot 2025-11-20 143505" src="https://github.com/user-attachments/assets/a0815d65-9da8-475b-8f8f-915ff19678ea" />
+(previous installation of ESP-IDF v6.1-dev-623-g8fle7bc4e0(DEVELOPMENT EDGE) was giving error in qemu run, thus switching to stable version ESP-IDF v5.1.2)
+
+<img width="1920" height="1080" alt="Screenshot 2025-11-20 210356" src="https://github.com/user-attachments/assets/404957c2-1dd6-4494-aeed-329155c9c33c" />
+
+ 
+
 ### STEP 4:CREATE PROJECT
+
+
 ### STEP 5 : BUILD PROJECT AND RUN IN QEMU
-# DEMONSTARTION OF BLINK LED:
-# DEMONSTARTION OF TEMPERATURE READING (SIMULATED)
+### DEMONSTARTION OF BLINK LED:
+### DEMONSTARTION OF TEMPERATURE READING (SIMULATED)
 
 
 
