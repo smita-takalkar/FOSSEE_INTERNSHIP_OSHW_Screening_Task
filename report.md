@@ -8,9 +8,14 @@
 
 
 # REFERENCES:
-## QEMU Official: https://www.qemu.org/docs/master/
-## Espressif QEMU REPO: https://github.com/espressif/qemu
-## ESP-IDF Get Started: https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-st arted/index.html
-## ESP-IDF GPIO Docs: https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-ref erence//gpio.html
-## Yaksh : https://github.c peripherals om/FOSSEE/online_test 
-## Example ESP-IDF Projects: https://github.com/espressif/esp-idf/tree/master/examples/get-started
+**QEMU Official:** https://www.qemu.org/docs/master/
+
+**Espressif QEMU REPO:** https://github.com/espressif/qemu
+
+**ESP-IDF Get Started:** https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-started/index.html
+
+**ESP-IDF GPIO Docs:** https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-ref erence//gpio.html
+
+**Yaksh :** https://github.c peripherals om/FOSSEE/online_test 
+
+**Example ESP-IDF Projects:** https://github.com/espressif/esp-idf/tree/master/examples/get-started
