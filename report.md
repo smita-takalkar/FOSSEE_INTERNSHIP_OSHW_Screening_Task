@@ -1,7 +1,7 @@
 # SYSTEM INFORMATION
-OS: WSL (Ubuntu 24.04.3 LTS)
-QEMU VERSION: QEMU emulator version 9.2.2 (v9.0.0-5104-g18a7345ed4)
-ESP-IDF Version: ESP-IDF v5.1.2
+- OS: WSL (Ubuntu 24.04.3 LTS) 
+- QEMU VERSION: QEMU emulator version 9.2.2 (v9.0.0-5104-g18a7345ed4)
+- ESP-IDF Version: ESP-IDF v5.1.2
 
 # SETUP STEPS:
 
