@@ -33,10 +33,34 @@ g++ --version
 
 
 ### STEP 2: BUILD QEMU FOR ESP32
-Clone the Repository 
+
 ```bash
- git clone https://github.com/espressif/qemu.git
+# Clone the Repository 
+git clone https://github.com/espressif/qemu.git
+
+# install essential dependencies
+sudo apt-get install -y git libglib2.0-dev libfdt-dev libpixman-1-dev ninja-build build essential zlib1g-dev libnfs-dev libiscsi-dev
 ```
+<img width="1920" height="1080" alt="Screenshot 2025-11-17 221818" src="https://github.com/user-attachments/assets/5bc26303-f8c2-42c6-a83f-5ba3d7ee07bd" />
+Error due to missing packages:
+<img width="1920" height="1080" alt="Screenshot 2025-11-17 223226" src="https://github.com/user-attachments/assets/7f3660df-8731-451c-9768-6ed104f9b338" />
+<img width="1920" height="1080" alt="Screenshot 2025-11-17 223240" src="https://github.com/user-attachments/assets/09419cbe-5994-4e7d-8aa2-0a66afa5493e" />
+<img width="960" height="1020" alt="Screenshot 2025-11-17 225505" src="https://github.com/user-attachments/assets/db44d3d8-da77-4b25-9b65-9c5095102d76" />
+
+```bash
+# configure and compile
+mkdir build
+cd build
+../configure --target-list=xtensa-softmmu
+make -j$(nproc)
+#Add path to ~/.bashrc
+echo "Add to PATH: export PATH=\$HOME/esp/qemu/build:\$PATH" >> ~/.bashrc
+source ~/.bashrc
+```
+<img width="1920" height="1080" alt="Screenshot 2025-11-17 225733" src="https://github.com/user-attachments/assets/23c46e11-40ac-4375-97f3-4e4b1600fb5d" />
+<img width="1920" height="1080" alt="Screenshot 2025-11-17 225745" src="https://github.com/user-attachments/assets/cd5e0e28-dbf3-490a-ad51-30670b6276fa" />
+
+
 ### STEP 3: SETUP ESP-IDF
 ### STEP 4:CREATE PROJECT
 ### STEP 5 : BUILD PROJECT AND RUN IN QEMU
