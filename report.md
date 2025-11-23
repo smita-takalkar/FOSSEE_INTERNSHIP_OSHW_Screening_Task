@@ -95,9 +95,48 @@ idf.py --version
  
 
 ### STEP 4:CREATE PROJECT
+```bash
+# Using terminal text editor(nano)
+cd ~/esp/esp32-projects/led_blink/main
+# write code for led_blink
+nano led_blink.c
+# create other reqired files
+# main/CMakeLists.txt
+cd ~/esp/esp32-projects/led_blink/main
+echo 'idf_component_register(SRCS "led_blink.c" > CMakeLists.txt
+echo '                   INCLUDE_DIRS ".")' >> CMakeLists.txt
+# CMakeLists.txt in project root
+cd ~/esp/esp32-projects/led_blink
+echo 'cmake_minimum_required(VERSION 3.5)' > CMakeLists.txt
+echo 'include($ENV{IDF_PATH}/tools/cmake/project.cmake)' >> CMakeLists.txt
+echo 'project(led_blink)' >> CMakeLists.txt
+# verify files
+find . -type f
+```
+<img width="1920" height="1080" alt="Screenshot 2025-11-21 190048" src="https://github.com/user-attachments/assets/a428e353-9a9f-4ba3-81a7-9cb4e421c04a" />
+
 
 
 ### STEP 5 : BUILD PROJECT AND RUN IN QEMU
+``` bash
+# Build Project
+get_idf
+idf.py set-target esp32
+idf.py build
+
+# Create Flash Image using flash_args
+cd ~/esp/esp32-projects/led_blink/build
+python $IDF_PATH/components/esptool_py/esptool/esptool.py \
+    --chip esp32 merge_bin \
+    --fill-flash-size 4MB \
+    -o flash_image.bin \
+    @flash_args
+# verify if the flash image is created
+ls -la flash_image.bin
+# Run QEMU with flash image
+cd ~/esp/esp32-projects/led_blink
+~/esp/qemu/build/qemu-system-xtensa -nographic -machine esp32 -drive file=build/flash_image.bin,if=mtd,format=raw
+```
 ### DEMONSTARTION OF BLINK LED:
 ### DEMONSTARTION OF TEMPERATURE READING (SIMULATED)
 
