@@ -44,7 +44,9 @@ sudo apt-get install -y git libglib2.0-dev libfdt-dev libpixman-1-dev ninja-buil
 ```
 
 <img width="1920" height="1080" alt="Screenshot 2025-11-17 221818" src="https://github.com/user-attachments/assets/5bc26303-f8c2-42c6-a83f-5ba3d7ee07bd" />
-Error due to missing packages:
+
+**Error due to missing packages:**
+
 <img width="1920" height="1080" alt="Screenshot 2025-11-17 223226" src="https://github.com/user-attachments/assets/7f3660df-8731-451c-9768-6ed104f9b338" />
 <img width="1920" height="1080" alt="Screenshot 2025-11-17 223240" src="https://github.com/user-attachments/assets/09419cbe-5994-4e7d-8aa2-0a66afa5493e" />
 <img width="960" height="1020" alt="Screenshot 2025-11-17 225505" src="https://github.com/user-attachments/assets/db44d3d8-da77-4b25-9b65-9c5095102d76" />
@@ -74,7 +76,8 @@ qemu-system-xtensa -machine help
 
 ### STEP 3: SETUP ESP-IDF
 ESP-IDF SDK provides the compiler, libraries, & tools for building ESP32 applications
-commands to set up ESP-IDF
+
+### Commands to set up ESP-IDF
 ```bash
 # creating dedicated directory for ESP development
 mkdir esp
