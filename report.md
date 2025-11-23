@@ -123,7 +123,10 @@ find . -type f
 get_idf
 idf.py set-target esp32
 idf.py build
+```
+<img width="1920" height="1080" alt="Screenshot 2025-11-21 190130" src="https://github.com/user-attachments/assets/dbbc2caf-25ed-4d1f-b6be-c161bcb4d881" />
 
+``` bash
 # Create Flash Image using flash_args
 cd ~/esp/esp32-projects/led_blink/build
 python $IDF_PATH/components/esptool_py/esptool/esptool.py \
@@ -137,9 +140,40 @@ ls -la flash_image.bin
 cd ~/esp/esp32-projects/led_blink
 ~/esp/qemu/build/qemu-system-xtensa -nographic -machine esp32 -drive file=build/flash_image.bin,if=mtd,format=raw
 ```
-### DEMONSTARTION OF BLINK LED:
-### DEMONSTARTION OF TEMPERATURE READING (SIMULATED)
+Error:
+- Due to insuffiecient flash image, raw .bin file was too small and not properly formatted as complete flash image
+- "-drive" with MTD interface was not properly supported (incorrect wemu parameter)
+- Understanding: single application binaries don't constitute complete flash image, QEMU requires well structured flash image with specific size
+<img width="1920" height="1080" alt="Screenshot 2025-11-21 191616" src="https://github.com/user-attachments/assets/290623a2-1639-418d-bef4-96f3f3be746a" />
+<img width="1920" height="1080" alt="Screenshot 2025-11-21 191647" src="https://github.com/user-attachments/assets/8938d7f4-b54a-4e23-a3b4-1ac419fdce76" />
 
+Solution: 
+- creating complete flash image using esptool.py to merge all required components
+- 4MB size for flash image is supported by QEMU
+- Included bootloader, partitions and applications at correct offset 
+``` bash
+cd ~/esp/esp32-projects/led_blink/build
+python $IDF_PATH/components/esptool_py/esptool/esptool.py \
+    --chip esp32 merge_bin \
+    --fill-flash-size 4MB \
+    -o flash_image.bin \
+    @flash_args esptool.py --chip esp32 merge_bin --fill-flash-size 4MB -o flash_image.bin --flash_mode dio --flash_freq 40m --flash_size 2MB 0X1000 bootloader/bootloader.bin 0x10000 led_blink.bin 0x8000 partition_table/partition-table.bin
+# Run in QEMU
+~/esp/qemu/build/qemu-system-xtensa -nographic \
+    -machine esp32 \
+    -drive file=build/flash_image.bin,if=mtd,format=raw
+```
+<img width="1920" height="1080" alt="Screenshot 2025-11-21 194835" src="https://github.com/user-attachments/assets/faacc5a6-189f-46d1-82db-a5fecea7edcc" />
+<img width="1920" height="1080" alt="Screenshot 2025-11-21 194844" src="https://github.com/user-attachments/assets/18866bbe-638b-4402-bd66-e3eb4bfe6366" />
+<img width="1920" height="1080" alt="Screenshot 2025-11-21 194855" src="https://github.com/user-attachments/assets/d78e0eb3-fff2-4ff0-9762-e57d5e88204d" />
+
+With similar steps Created project for temperture reading of simulated temperature
+
+<img width="1920" height="1080" alt="Screenshot 2025-11-21 201305" src="https://github.com/user-attachments/assets/ce8b9791-e6bb-4b30-9fbe-cea7ede8ef2d" />
+<img width="1920" height="1080" alt="Screenshot 2025-11-21 201348" src="https://github.com/user-attachments/assets/41f75eab-018a-45ba-9c55-4e6c7bedb28c" />
+<img width="1920" height="1080" alt="Screenshot 2025-11-21 201358" src="https://github.com/user-attachments/assets/d087a05d-59a2-4ef1-88b5-984fe8304e64" />
+<img width="1920" height="1080" alt="Screenshot 2025-11-21 201406" src="https://github.com/user-attachments/assets/a1aaf61a-9774-4c5b-b062-aa6ed223807f" />
+<img width="1920" height="1080" alt="Screenshot 2025-11-21 201417" src="https://github.com/user-attachments/assets/2949c7a7-11bc-4621-8899-52e163f60fdf" />
 
 
 # REFERENCES:
