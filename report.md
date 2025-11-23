@@ -29,6 +29,7 @@ make --version
 gcc --version
 g++ --version
 ```
+
 <img width="1483" height="762" alt="Screenshot 2025-11-22 155235" src="https://github.com/user-attachments/assets/f259ca6f-f6ad-47f6-a06e-357d9a30924d" />
 
 
