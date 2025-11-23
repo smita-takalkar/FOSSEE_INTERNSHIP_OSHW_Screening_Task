@@ -42,6 +42,7 @@ git clone https://github.com/espressif/qemu.git
 # install essential dependencies
 sudo apt-get install -y git libglib2.0-dev libfdt-dev libpixman-1-dev ninja-build build essential zlib1g-dev libnfs-dev libiscsi-dev
 ```
+
 <img width="1920" height="1080" alt="Screenshot 2025-11-17 221818" src="https://github.com/user-attachments/assets/5bc26303-f8c2-42c6-a83f-5ba3d7ee07bd" />
 Error due to missing packages:
 <img width="1920" height="1080" alt="Screenshot 2025-11-17 223226" src="https://github.com/user-attachments/assets/7f3660df-8731-451c-9768-6ed104f9b338" />
@@ -60,6 +61,8 @@ source ~/.bashrc
 ```
 <img width="1920" height="1080" alt="Screenshot 2025-11-17 225733" src="https://github.com/user-attachments/assets/23c46e11-40ac-4375-97f3-4e4b1600fb5d" />
 <img width="1920" height="1080" alt="Screenshot 2025-11-17 225745" src="https://github.com/user-attachments/assets/cd5e0e28-dbf3-490a-ad51-30670b6276fa" />
+
+
 ```bash
 # Installation verification
 qemu-system-xtensa --version
@@ -88,8 +91,10 @@ source ~/esp/esp-idf/export.sh
 # Verify Installation
 idf.py --version
 ```
+
 <img width="1920" height="1080" alt="Screenshot 2025-11-20 143505" src="https://github.com/user-attachments/assets/a0815d65-9da8-475b-8f8f-915ff19678ea" />
-(previous installation of ESP-IDF v6.1-dev-623-g8fle7bc4e0(DEVELOPMENT EDGE) was giving error in qemu run, thus switching to stable version ESP-IDF v5.1.2)
+
+**(previous installation of ESP-IDF v6.1-dev-623-g8fle7bc4e0(DEVELOPMENT EDGE) was giving error in qemu run, thus switching to stable version ESP-IDF v5.1.2)**
 
 <img width="1920" height="1080" alt="Screenshot 2025-11-20 210356" src="https://github.com/user-attachments/assets/404957c2-1dd6-4494-aeed-329155c9c33c" />
 
@@ -114,9 +119,11 @@ echo 'project(led_blink)' >> CMakeLists.txt
 # verify files
 find . -type f
 ```
+
 <img width="1920" height="1080" alt="Screenshot 2025-11-21 190048" src="https://github.com/user-attachments/assets/a428e353-9a9f-4ba3-81a7-9cb4e421c04a" />
 
-
+### Folder structure Tree
+<img width="1920" height="1020" alt="Screenshot 2025-11-23 153912" src="https://github.com/user-attachments/assets/006836b8-cfaf-4fbc-8f95-3f8cdfcf91eb" />
 
 ### STEP 5 : BUILD PROJECT AND RUN IN QEMU
 ``` bash
@@ -126,6 +133,7 @@ idf.py set-target esp32
 idf.py build
 ```
 <img width="1920" height="1080" alt="Screenshot 2025-11-21 190130" src="https://github.com/user-attachments/assets/dbbc2caf-25ed-4d1f-b6be-c161bcb4d881" />
+
 
 ``` bash
 # Create Flash Image using flash_args
@@ -141,17 +149,20 @@ ls -la flash_image.bin
 cd ~/esp/esp32-projects/led_blink
 ~/esp/qemu/build/qemu-system-xtensa -nographic -machine esp32 -drive file=build/flash_image.bin,if=mtd,format=raw
 ```
-Error:
+
+**Error:**
 - Due to insuffiecient flash image, raw .bin file was too small and not properly formatted as complete flash image
 - "-drive" with MTD interface was not properly supported (incorrect wemu parameter)
 - Understanding: single application binaries don't constitute complete flash image, QEMU requires well structured flash image with specific size
 <img width="1920" height="1080" alt="Screenshot 2025-11-21 191616" src="https://github.com/user-attachments/assets/290623a2-1639-418d-bef4-96f3f3be746a" />
 <img width="1920" height="1080" alt="Screenshot 2025-11-21 191647" src="https://github.com/user-attachments/assets/8938d7f4-b54a-4e23-a3b4-1ac419fdce76" />
 
-Solution: 
+**Solution: **
 - creating complete flash image using esptool.py to merge all required components
 - 4MB size for flash image is supported by QEMU
-- Included bootloader, partitions and applications at correct offset 
+- Included bootloader, partitions and applications at correct offset
+
+  
 ``` bash
 cd ~/esp/esp32-projects/led_blink/build
 python $IDF_PATH/components/esptool_py/esptool/esptool.py \
@@ -164,17 +175,23 @@ python $IDF_PATH/components/esptool_py/esptool/esptool.py \
     -machine esp32 \
     -drive file=build/flash_image.bin,if=mtd,format=raw
 ```
-<img width="1920" height="1080" alt="Screenshot 2025-11-21 194835" src="https://github.com/user-attachments/assets/faacc5a6-189f-46d1-82db-a5fecea7edcc" />
-<img width="1920" height="1080" alt="Screenshot 2025-11-21 194844" src="https://github.com/user-attachments/assets/18866bbe-638b-4402-bd66-e3eb4bfe6366" />
-<img width="1920" height="1080" alt="Screenshot 2025-11-21 194855" src="https://github.com/user-attachments/assets/d78e0eb3-fff2-4ff0-9762-e57d5e88204d" />
 
-With similar steps Created project for temperture reading of simulated temperature
+<img width="1920" height="1020" alt="Screenshot 2025-11-23 173706" src="https://github.com/user-attachments/assets/379ef11f-fabe-4e6a-8173-75da6dcd9724" />
+<img width="1920" height="1020" alt="Screenshot 2025-11-23 173149" src="https://github.com/user-attachments/assets/08e58576-340b-4b6d-98a2-1d176374e3ad" />
+<img width="1920" height="1020" alt="Screenshot 2025-11-23 163628" src="https://github.com/user-attachments/assets/d3e275f7-859e-40d0-840d-38ac6cd91680" />
+
+## Temperature Reading (Simulated)
+
+**With similar steps Created project for temperture reading of simulated temperature**
 
 <img width="1920" height="1080" alt="Screenshot 2025-11-21 201305" src="https://github.com/user-attachments/assets/ce8b9791-e6bb-4b30-9fbe-cea7ede8ef2d" />
 <img width="1920" height="1080" alt="Screenshot 2025-11-21 201348" src="https://github.com/user-attachments/assets/41f75eab-018a-45ba-9c55-4e6c7bedb28c" />
 <img width="1920" height="1080" alt="Screenshot 2025-11-21 201358" src="https://github.com/user-attachments/assets/d087a05d-59a2-4ef1-88b5-984fe8304e64" />
 <img width="1920" height="1080" alt="Screenshot 2025-11-21 201406" src="https://github.com/user-attachments/assets/a1aaf61a-9774-4c5b-b062-aa6ed223807f" />
 <img width="1920" height="1080" alt="Screenshot 2025-11-21 201417" src="https://github.com/user-attachments/assets/2949c7a7-11bc-4621-8899-52e163f60fdf" />
+
+### Folder Structure for temperature_sensor project
+<img width="1920" height="1020" alt="Screenshot 2025-11-23 153955" src="https://github.com/user-attachments/assets/2cf2c095-8a61-4c6a-a288-559361313b99" />
 
 
 # REFERENCES:
