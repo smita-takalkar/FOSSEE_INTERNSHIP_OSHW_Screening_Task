@@ -1,7 +1,23 @@
 # Task 1
 
 1.  Verify ESP-IDF Installation
+``` bash
+# Check if ESP-IDF is installed
+echo $IDF_PATH
+# Should show: /home/yourname/esp/esp-idf
+
+# If not set, set it:
+export IDF_PATH=~/esp/esp-idf
+source $IDF_PATH/export.sh
+```
 2. Install Required Dependencies
+ ``` bash
+   sudo apt update
+sudo apt install -y \
+    git wget flex bison gperf python3 python3-pip python3-venv \
+    cmake ninja-build ccache libffi-dev libssl-dev dfu-util \
+    libusb-1.0-0-dev python3-setuptools
+ ```
 3. Manual installation of Arduino framework
 ``` bash
 # Go to your project directory
