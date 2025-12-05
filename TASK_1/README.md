@@ -82,7 +82,7 @@ EOF
 
 chmod +x convert_ino_simple.sh
 ```
-## created test .ino file
+### created test .ino file
 ``` bash
 # Create a test Arduino file
 cat > my_sketch.ino << 'EOF'
@@ -109,7 +109,7 @@ void loop() {
 }
 EOF
 ```
-# for conversion 
+### for conversion 
 ``` bash
 # Run the converter
 ./convert_ino_simple.sh my_sketch.ino
@@ -117,4 +117,5 @@ EOF
 # View the converted file
 cat my_sketch.cpp
 ```
-# after running the script we'll get my_sketch.cpp file 
+### after running the script we'll get my_sketch.cpp file 
+
