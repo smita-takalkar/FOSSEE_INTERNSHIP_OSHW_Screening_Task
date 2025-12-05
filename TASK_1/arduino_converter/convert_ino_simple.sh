@@ -33,4 +33,4 @@ echo "" >> "$CPPFILE"
 # Copy the rest of the file
 cat "$INOFILE" >> "$CPPFILE"
 
-echo "✓ Conversion complete: $CPPFILE"
+echo "Conversion complete: $CPPFILE"
