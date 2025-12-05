@@ -1,5 +1,5 @@
 #!/bin/bash
-# Simple .ino to .cpp converter
+# .ino to .cpp converter
 
 if [ $# -ne 1 ]; then
     echo "Usage: $0 <filename.ino>"
