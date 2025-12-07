@@ -1,1 +1,0 @@
-/home/koyel/teamA_work/scripts/build_project/build/blink_temp.elf
