@@ -18,15 +18,31 @@ export IDF_PATH=~/esp/esp-idf
 source $IDF_PATH/export.sh 
 ```
 
-##Build Automation Script
+## Build Automation Script
 The script compiles the .cpp file using ESP-IDF and collects all build output files automatically.
 
-File: scripts/build_firmware.sh
+**File: scripts/build_firmware.sh**
 
 ## Sample Test Program
 A minimal example program used to verify compilation and QEMU execution.
 
-File: sample_input/main.cpp
+**File: sample_input/main.cpp**
+```bash
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+#include "driver/gpio.h"
+
+extern "C" void app_main(void) {
+    gpio_reset_pin(GPIO_NUM_2);
+    gpio_set_direction(GPIO_NUM_2, GPIO_MODE_OUTPUT);
+    while(1) {
+        gpio_set_level(GPIO_NUM_2, 1);
+        vTaskDelay(500 / portTICK_PERIOD_MS);
+        gpio_set_level(GPIO_NUM_2, 0);
+        vTaskDelay(500 / portTICK_PERIOD_MS);
+    }
+}
+```
 Purpose: Blinks LED on GPIO2 every 500ms.
 
 ## Running the Build
