@@ -19,7 +19,12 @@ source $IDF_PATH/export.sh
 ```
 
 ## Build Automation Script
-The script compiles the .cpp file using ESP-IDF and collects all build output files automatically.
+This script automates firmware building using ESP-IDF.
+This script automates firmware building using ESP-IDF.
+It accepts a converted .cpp file as input, creates a temporary ESP-IDF project structure, compiles the code, and generates all necessary build outputs — including:
+- the final .elf firmware file (ready to be executed or run in QEMU)
+- build.log (full record of the build process for debugging)
+- artifact.txt (contains the absolute path of the .elf file for automation in the next pipeline stage)
 
 **File: scripts/build_firmware.sh**
 
