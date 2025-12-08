@@ -35,87 +35,12 @@ cd arduino
 # Initialize submodules (this may take a while)
 git submodule update --init --recursive
 ```
-# For understanding the conversion manual simple converter script
-``` bash
-mkdir ~/arduino_converter
-cd ~/arduino_converter
+### convert_ino_simple.sh was converting .ino to .cpp but the output was arduino code that needs arduino libraries to compile. So the output file won't compile with ESP-IDF
 
-# Create the converter script
-cat > convert_ino_simple.sh << 'EOF'
-#!/bin/bash
-# Simple .ino to .cpp converter
+### Updated convert_ino_cpp.sh converts .ino to ESP-IDF native code(.cpp) 
+1. It replaces arduino fuctions with esp-idf equivalents
+2. ads esp-idf headers
+3. creates esp-idf entry point(app_main)
+4. Compiles with ESP-IDF directly:)
 
-if [ $# -ne 1 ]; then
-    echo "Usage: $0 <filename.ino>"
-    exit 1
-fi
-
-INOFILE="$1"
-CPPFILE="${INOFILE%.ino}.cpp"
-
-echo "Converting $INOFILE to $CPPFILE..."
-
-# Add Arduino.h if missing and create prototypes
-echo "// Auto-converted from $INOFILE" > "$CPPFILE"
-echo "" >> "$CPPFILE"
-
-# Check if Arduino.h is included
-if ! grep -q "#include.*Arduino.h" "$INOFILE"; then
-    echo "#include <Arduino.h>" >> "$CPPFILE"
-    echo "" >> "$CPPFILE"
-fi
-
-# Add function prototypes (excluding setup and loop)
-echo "// Function prototypes" >> "$CPPFILE"
-grep -E "^(void|int|float|double|char|bool|String|byte|word|long|unsigned)" "$INOFILE" | \
-    grep -v "void setup\|void loop" | \
-    grep "(" | \
-    sed 's/{.*/;/' | \
-    sort -u >> "$CPPFILE"
-echo "" >> "$CPPFILE"
-
-# Copy the rest of the file
-cat "$INOFILE" >> "$CPPFILE"
-
-echo "✓ Conversion complete: $CPPFILE"
-EOF
-
-chmod +x convert_ino_simple.sh
-```
-### created test .ino file
-``` bash
-# Create a test Arduino file
-cat > my_sketch.ino << 'EOF'
-// My Arduino sketch
-int readSensor(int pin) {
-  return analogRead(pin);
-}
-
-void setupLED() {
-  pinMode(13, OUTPUT);
-}
-
-void setup() {
-  Serial.begin(115200);
-  setupLED();
-  Serial.println("Started!");
-}
-
-void loop() {
-  int value = readSensor(A0);
-  Serial.print("Sensor: ");
-  Serial.println(value);
-  delay(1000);
-}
-EOF
-```
-### for conversion 
-``` bash
-# Run the converter
-./convert_ino_simple.sh my_sketch.ino
-
-# View the converted file
-cat my_sketch.cpp
-```
-### after running the script we'll get my_sketch.cpp file 
 
