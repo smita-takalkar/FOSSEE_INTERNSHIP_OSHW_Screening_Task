@@ -103,7 +103,7 @@ Replace `<your_path>` with the actual QEMU directory path.
 - Automatically executes it using **Ctrl‑D**
 - Then returns to normal REPL mode so you can type interactively
 
-### 🔍 How `pyauto.py` works (simple explanation)
+### 🔍 How `pyauto.py` works
 1. It starts QEMU using MicroPython `firmware.bin`.
 2. It creates a *pseudo‑terminal* (PTY) to communicate with QEMU like a real terminal.
 3. It continuously reads QEMU output and waits until MicroPython prints the startup text ending with:
